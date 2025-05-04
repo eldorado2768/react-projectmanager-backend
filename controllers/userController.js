@@ -468,6 +468,7 @@ export const getUserProfile = async (req, res) => {
 
 // Update User Profile
 export const updateUserProfile = async (req, res) => {
+  console.log("Update request received:", req.body); // ✅ DEBUG
   const userId = req.body.userId;
   ``;
   try {
