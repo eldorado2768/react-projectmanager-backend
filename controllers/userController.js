@@ -527,3 +527,30 @@ export const updateUserProfile = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
+//Retrieve password
+export const getUserPassword = async (req, res) => {
+  const userId = req.userId;
+
+  if (!userId) {
+    return res
+      .status(401)
+      .json({ error: "Unauthorized access. Please log in." });
+  }
+
+  try {
+    const user = await User.findById(req.userId)
+      .select("password"); // ✅ Ensure roleId is included
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found." }); // ✅ Proper error handling
+    }
+
+    res.status(200).json({
+      password: password,
+    });
+  } catch (error) {
+    console.error("Error fetching password:", error);
+    res.status(500).json({ error: "Failed to retrieve user password." }); // ✅ Ensure JSON response
+  }
+};
