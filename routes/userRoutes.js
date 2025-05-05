@@ -3,7 +3,6 @@ import * as userController from "../controllers/userController.js";
 import protect from "../middleware/protect.js";
 import checkSessionActivity from "../middleware/sessionMiddleware.js";
 
-
 const router = express.Router();
 
 const asyncHandler = (fn) => (req, res, next) => {
@@ -25,6 +24,6 @@ router.get(
   asyncHandler(userController.getUserProfile)
 );
 router.put("/profile", protect, asyncHandler(userController.updateUserProfile));
-router.put("/update-password", protect, asyncHandler(userController.updatePassword));
+router.put("/update-password", asyncHandler(userController.updatePassword));
 
 export default router;
