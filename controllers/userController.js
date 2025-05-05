@@ -201,9 +201,6 @@ export const loginUser = async (req, res) => {
       user.roleId.roleName
     );
 
-    //Save the authToken in localstorage
-    localStorage.setItem("authToken", accessToken);
-
     // Step 4: Store 1 hour accessToken in Cookie
     res.cookie("authToken", accessToken, {
       httpOnly: true, // Secure the cookie from JavaScript access
