@@ -166,6 +166,7 @@ const createSession = async (userId, role) => {
 // ✅ Main Function: Login User
 export const loginUser = async (req, res) => {
   const { username, password } = req.body;
+  const authToken = crypto.randomBytes(20).toString("hex");
 
   // Role-based redirects
   const roleRedirects = {
@@ -222,6 +223,7 @@ export const loginUser = async (req, res) => {
       redirectUrl: roleRedirects[user.roleId.roleName] || "/login",
       userId: user._id,
       roleName: user.roleId.roleName,
+      authToken: authToken,
       message: "Login successful",
     });
   } catch (error) {
@@ -434,8 +436,8 @@ export const resetPassword = async (req, res) => {
 
 //Updating password while logged in
 export const updatePassword = async (req, res) => {
-  const {userId, newPassword} = req.body;
-  
+  const { userId, newPassword } = req.body;
+
   try {
     // Find the user by userId and ensure it hasn't expired
     const user = await User.findOne({ userId: userId });
