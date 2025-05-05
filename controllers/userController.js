@@ -386,6 +386,7 @@ const isValidPassword = (password) => {
   return passwordRegex.test(password) && password.length >= 8;
 };
 
+//Resetting password in public using token
 export const resetPassword = async (req, res) => {
   try {
     const { token, password } = req.body;
@@ -417,6 +418,46 @@ export const resetPassword = async (req, res) => {
     // Clear reset token and expiration
     user.resetPasswordToken = null;
     user.resetPasswordExpires = null;
+
+    try {
+      await user.save();
+    } catch (error) {
+      console.error("Error saving user:", error);
+    }
+
+    res.status(200).json({ message: "Password reset successful" });
+  } catch (error) {
+    console.error("Error in resetPassword:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+//Updating password while logged in
+export const updatePassword = async (req, res) => {
+  const userId = req.body.userId;
+  const password = req.body.password;
+
+  try {
+    // Find the user by userId and ensure it hasn't expired
+    const user = await User.findOne({ userId: userId });
+
+    if (!user) {
+      return res.status(400).json({ message: "Invalid or expired token" });
+    }
+
+    // Validate the new password
+    if (!isValidPassword(password)) {
+      return res.status(400).json({
+        message:
+          "Password must be at least 8 characters long and include uppercase, lowercase, numbers, and special characters.",
+      });
+    }
+
+    // Hash and update the new password
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    user.password = hashedPassword;
+    user.lastUpdated = Date.now();
 
     try {
       await user.save();
@@ -467,9 +508,7 @@ export const getUserProfile = async (req, res) => {
 
 // Update User Profile
 export const updateUserProfile = async (req, res) => {
-  console.log("Update request received:", req.body); // ✅ DEBUG
   const userId = req.body.userId;
-  console.log("UserId extracted: ", userId);
 
   try {
     const user = await User.findById(userId);
