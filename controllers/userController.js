@@ -166,7 +166,6 @@ const createSession = async (userId, role) => {
 // ✅ Main Function: Login User
 export const loginUser = async (req, res) => {
   const { username, password } = req.body;
-  const authToken = crypto.randomBytes(20).toString("hex");
 
   // Role-based redirects
   const roleRedirects = {
@@ -201,6 +200,9 @@ export const loginUser = async (req, res) => {
       user._id,
       user.roleId.roleName
     );
+
+    //Save the authToken in localstorage
+    localStorage.setItem("authToken", accessToken);
 
     // Step 4: Store 1 hour accessToken in Cookie
     res.cookie("authToken", accessToken, {
