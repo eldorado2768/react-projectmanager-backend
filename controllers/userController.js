@@ -434,9 +434,8 @@ export const resetPassword = async (req, res) => {
 
 //Updating password while logged in
 export const updatePassword = async (req, res) => {
-  const userId = req.body.userId;
-  const password = req.body.password;
-
+  const {userId, newPassword} = req.body;
+  
   try {
     // Find the user by userId and ensure it hasn't expired
     const user = await User.findOne({ userId: userId });
@@ -446,7 +445,7 @@ export const updatePassword = async (req, res) => {
     }
 
     // Validate the new password
-    if (!isValidPassword(password)) {
+    if (!isValidPassword(newPassword)) {
       return res.status(400).json({
         message:
           "Password must be at least 8 characters long and include uppercase, lowercase, numbers, and special characters.",
@@ -455,7 +454,7 @@ export const updatePassword = async (req, res) => {
 
     // Hash and update the new password
     const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
     user.password = hashedPassword;
     user.lastUpdated = Date.now();
 
@@ -465,9 +464,9 @@ export const updatePassword = async (req, res) => {
       console.error("Error saving user:", error);
     }
 
-    res.status(200).json({ message: "Password reset successful" });
+    res.status(200).json({ message: "Password update successful" });
   } catch (error) {
-    console.error("Error in resetPassword:", error);
+    console.error("Error in updatePassword:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 };
@@ -525,32 +524,5 @@ export const updateUserProfile = async (req, res) => {
     res.json(updatedUser);
   } catch (error) {
     res.status(500).json({ message: "Server error" });
-  }
-};
-
-//Retrieve password
-export const getUserPassword = async (req, res) => {
-  const userId = req.userId;
-
-  if (!userId) {
-    return res
-      .status(401)
-      .json({ error: "Unauthorized access. Please log in." });
-  }
-
-  try {
-    const user = await User.findById(req.userId)
-      .select("password"); // ✅ Ensure roleId is included
-
-    if (!user) {
-      return res.status(404).json({ error: "User not found." }); // ✅ Proper error handling
-    }
-
-    res.status(200).json({
-      password: password,
-    });
-  } catch (error) {
-    console.error("Error fetching password:", error);
-    res.status(500).json({ error: "Failed to retrieve user password." }); // ✅ Ensure JSON response
   }
 };

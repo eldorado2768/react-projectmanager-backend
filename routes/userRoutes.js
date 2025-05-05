@@ -18,7 +18,6 @@ router.post("/reset-password", asyncHandler(userController.resetPassword));
 router.post("/set-password", asyncHandler(userController.setPassword));
 router.post("/refresh-token", asyncHandler(userController.refreshToken));
 router.post("/logout-user", asyncHandler(userController.logoutUser));
-router.get("/get-user-password",protect,checkSessionActivity, asyncHandler(userController.getUserPassword));
 router.get(
   "/profile",
   protect,
