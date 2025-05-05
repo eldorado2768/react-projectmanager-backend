@@ -469,7 +469,8 @@ export const getUserProfile = async (req, res) => {
 export const updateUserProfile = async (req, res) => {
   console.log("Update request received:", req.body); // ✅ DEBUG
   const userId = req.body.userId;
-  ``;
+  console.log("UserId extracted: ", userId);
+
   try {
     const user = await User.findById(userId);
     if (!user) {
