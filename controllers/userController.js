@@ -222,7 +222,7 @@ export const loginUser = async (req, res) => {
       redirectUrl: roleRedirects[user.roleId.roleName] || "/login",
       userId: user._id,
       roleName: user.roleId.roleName,
-      authToken: accessToken,
+      accessToken: accessToken,
       message: "Login successful",
     });
   } catch (error) {
