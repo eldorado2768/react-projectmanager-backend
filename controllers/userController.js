@@ -433,10 +433,6 @@ export const resetPassword = async (req, res) => {
   }
 };
 
-//Updating password while logged in
-import bcrypt from "bcryptjs";
-import User from "../models/UserModel"; // Example user model
-
 export const updateUserPassword = async (req, res) => {
   const { userId, newPassword } = req.body;
   const authHeader = req.headers.authorization;
