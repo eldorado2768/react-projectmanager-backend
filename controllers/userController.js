@@ -436,6 +436,7 @@ export const resetPassword = async (req, res) => {
 export const updatePassword = async (req, res) => {
   const { userId, newPassword } = req.body;
   const authHeader = req.headers.authorization;
+  const secretKey = process.env.JWT_SECRET || "WW]LlR[fG]YZaoptZL[cW238EH05FJln-GXbE@";
 
   if (!authHeader)
     return res.status(401).json({ message: "No token provided" });
