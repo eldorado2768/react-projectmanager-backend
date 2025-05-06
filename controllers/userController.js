@@ -436,6 +436,8 @@ export const resetPassword = async (req, res) => {
 //Updating password while logged in
 export const updatePassword = async (req, res) => {
   const { userId, newPassword } = req.body;
+  console.log("userId is:", userId);
+  console.log("newPassword is: ", newPassword);
 
   try {
     // Find the user by userId and ensure it hasn't expired
