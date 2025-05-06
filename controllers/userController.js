@@ -436,6 +436,7 @@ export const resetPassword = async (req, res) => {
 export const updatePassword = async (req, res) => {
   const { userId, newPassword } = req.body;
   console.log("Headers received:", req.headers); // ✅ Debugging log
+  console.log("userId = :", userId);
   const authHeader = req.headers.authorization;
 
   if (!authHeader)
