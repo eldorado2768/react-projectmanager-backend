@@ -433,7 +433,7 @@ export const resetPassword = async (req, res) => {
   }
 };
 
-export const updateUserPassword = async (req, res) => {
+export const updatePassword = async (req, res) => {
   const { userId, newPassword } = req.body;
   const authHeader = req.headers.authorization;
 
