@@ -436,7 +436,8 @@ export const resetPassword = async (req, res) => {
 export const updatePassword = async (req, res) => {
   const { userId, newPassword } = req.body;
   const authHeader = req.headers.authorization;
-  const secretKey = process.env.JWT_SECRET || "WW]LlR[fG]YZaoptZL[cW238EH05FJln-GXbE@";
+  const secretKey =
+    process.env.JWT_SECRET || "WW]LlR[fG]YZaoptZL[cW238EH05FJln-GXbE@";
 
   if (!authHeader)
     return res.status(401).json({ message: "No token provided" });
@@ -444,7 +445,7 @@ export const updatePassword = async (req, res) => {
   const token = authHeader.split(" ")[1];
   console.log("Extracted token = :", token);
   const decoded = jwt.verify(token, secretKey);
-  decodedUserId = decoded.userId;
+  const decodedUserId = decoded.userId;
 
   if (userId !== decodedUserId) {
     return res.status(403).json({ message: "Unauthorized: User mismatch" });
