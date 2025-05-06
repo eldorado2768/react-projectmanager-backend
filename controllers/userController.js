@@ -446,7 +446,7 @@ export const updatePassword = async (req, res) => {
   const decoded = jwt.verify(token, secretKey);
   decodedUserId = decoded.userId;
 
-  if (userId !== decoded.userId) {
+  if (userId !== decodedUserId) {
     return res.status(403).json({ message: "Unauthorized: User mismatch" });
   }
 
