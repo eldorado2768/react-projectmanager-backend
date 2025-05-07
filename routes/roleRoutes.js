@@ -2,6 +2,7 @@ import express from "express";
 import addRole from "../controllers/roleController.js";
 import protect from "../middleware/protect.js";
 import asyncHandler from "../middleware/asyncHandler.js";
+import checkSessionActivity from "../middleware/sessionMiddleware.js";
 
 const router = express.Router();
 
