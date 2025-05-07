@@ -24,6 +24,12 @@ router.post(
   rolesRequired(["superadmin"]),
   asyncHandler(addRole)
 );
+router.get(
+  "/get-roles",
+  protect,
+  checkSessionActivity,
+  asyncHandler(roleController.getRoles)
+);
 
 // Retrieve an existing role (admin, superadmin)
 //router.get("/", authMiddleware, rolesRequired(["admin", "superadmin"]), roleController.getRoles);

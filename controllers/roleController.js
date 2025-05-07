@@ -1,5 +1,16 @@
 import Role from "../models/Role.js";
 
+export const getRoles = async (req, res) => {
+  try {
+    const roles = await Role.find({}); // ✅ Fetch all roles
+    res.status(200).json(roles);
+  } catch (error) {
+    console.error("Error fetching roles:", error);
+    res.status(500).json({ message: "Server error while retrieving roles." });
+  }
+};
+
+
 const addRole = async (req, res) => {
   try {
     const { roleName, permissions } = req.body;
