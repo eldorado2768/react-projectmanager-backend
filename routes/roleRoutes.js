@@ -23,7 +23,7 @@ router.post(
   "/add-role",
   protect,
   rolesRequired(["superadmin"]),
-  asyncHandler(addRole)
+  asyncHandler(roleController.addRole)
 );
 router.get(
   "/get-roles",
