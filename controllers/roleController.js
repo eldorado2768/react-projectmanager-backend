@@ -10,8 +10,7 @@ export const getRoles = async (req, res) => {
   }
 };
 
-
-const addRole = async (req, res) => {
+export const addRole = async (req, res) => {
   try {
     const { roleName, permissions } = req.body;
 
@@ -67,5 +66,3 @@ const addRole = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
-
-export default addRole;
