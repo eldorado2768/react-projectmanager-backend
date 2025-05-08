@@ -1,7 +1,6 @@
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
-
 import userRoutes from "./routes/userRoutes.js";
 import roleRoutes from "./routes/roleRoutes.js";
 import permissionRoutes from "./routes/permissionRoutes.js";
@@ -23,22 +22,7 @@ const allowedOrigins = [
 ];
 
 app.use(cookieParser());
-
-app.use(
-  cors({
-    origin: allowedOrigins,
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE", // Allow all necessary request methods
-    allowedHeaders: [
-      "Origin",
-      "X-Requested-With",
-      "Content-Type",
-      "Accept",
-      "Authorization",
-      "x-session-id",
-    ],
-    credentials: true, // Required if using authentication headers
-  })
-);
+app.use(cors({ origin: "*", credentials: true }));
 
 app.options("*", cors());
 
