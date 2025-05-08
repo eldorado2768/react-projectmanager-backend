@@ -27,7 +27,7 @@ router.post(
 );
 router.get(
   "/get-roles",
-  protect,
+  //protect,
   checkSessionActivity,
   asyncHandler(roleController.getRoles)
 );
