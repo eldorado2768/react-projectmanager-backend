@@ -3,6 +3,8 @@ import Role from "../models/Role.js";
 
 export const getRoles = async (req, res) => {
   const authHeader = req.headers.authorization;
+  console.log("Incoming headers :", authHeader);
+
   const secretKey =
     process.env.JWT_SECRET || "WW]LlR[fG]YZaoptZL[cW238EH05FJln-GXbE@";
 
