@@ -25,9 +25,10 @@ router.post(
   rolesRequired(["superadmin"]),
   asyncHandler(roleController.addRole)
 );
+
 router.get(
   "/get-roles",
-  //protect,
+  protect,
   checkSessionActivity,
   asyncHandler(roleController.getRoles)
 );

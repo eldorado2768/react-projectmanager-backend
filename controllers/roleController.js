@@ -2,9 +2,8 @@ import Role from "../models/Role.js";
 
 export const getRoles = async (req, res) => {
   const authHeader = req.headers.authorization;
-  return res.status(200).json({ message: "getRoles called" });
-
-  /*  const secretKey = process.env.JWT_SECRET || "your-secret-key";
+  const secretKey =
+    process.env.JWT_SECRET || "WW]LlR[fG]YZaoptZL[cW238EH05FJln-GXbE@";
 
   if (!authHeader) {
     return res.status(401).json({ message: "No token provided" });
@@ -23,7 +22,6 @@ export const getRoles = async (req, res) => {
     console.error("Token verification failed:", error.message);
     return res.status(403).json({ message: "Invalid or expired token" });
   }
-    */
 };
 
 export const addRole = async (req, res) => {
