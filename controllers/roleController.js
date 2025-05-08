@@ -13,7 +13,7 @@ export const getRoles = async (req, res) => {
   const token = authHeader.split(" ")[1];
   const decoded = jwt.verify(token, secretKey);
 
-  if (!decoded) {
+  if (!decoded.token) {
     return res.status(403).json({ message: "Invalid token decoded" });
   }
   try {

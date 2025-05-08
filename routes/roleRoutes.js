@@ -28,6 +28,8 @@ router.post(
 
 router.get(
   "/get-roles",
+  console.log("Incoming request to /get-roles"),
+  next(),
   protect,
   checkSessionActivity,
   asyncHandler(roleController.getRoles)
