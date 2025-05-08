@@ -3,6 +3,7 @@ import Session from "../models/Session.js";
 
 const checkSessionActivity = async (req, res, next) => {
   const token = req.cookies.authToken; // Get the authToken from
+  
 
   if (!token) {
     return res.status(401).json({ message: "Authentication token required." });
