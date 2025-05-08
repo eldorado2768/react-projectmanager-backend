@@ -24,6 +24,6 @@ router.get(
   asyncHandler(userController.getUserProfile)
 );
 router.put("/profile", protect, asyncHandler(userController.updateUserProfile));
-router.put("/update-password", asyncHandler(userController.updatePassword));
+router.put("/update-password", protect, asyncHandler(userController.updatePassword));
 
 export default router;
