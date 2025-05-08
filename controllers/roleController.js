@@ -10,16 +10,16 @@ export const getRoles = async (req, res) => {
   }
 
   const token = authHeader.split(" ")[1];
+  const decoded = jwt.verify(token, secretKey);
 
+  if (!decoded) {
+    return res.status(403).json({ message: "Invalid token decoded" });
+  }
   try {
-    const decoded = jwt.verify(token, secretKey);
-    console.log("Decoded token:", decoded); // ✅ Debugging
-
-    // Fetch roles only if token is valid
     const roles = await Role.find({});
     res.status(200).json(roles);
   } catch (error) {
-    console.error("Token verification failed:", error.message);
+    console.error("Failed to fetch data:", error.message);
     return res.status(403).json({ message: "Invalid or expired token" });
   }
 };
