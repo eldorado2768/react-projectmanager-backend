@@ -1,3 +1,4 @@
+import jwt from "jsonwebtoken";
 import Role from "../models/Role.js";
 
 export const getRoles = async (req, res) => {
