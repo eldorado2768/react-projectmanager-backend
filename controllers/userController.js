@@ -399,7 +399,7 @@ export const resetPassword = async (req, res) => {
     });
 
     if (!user) {
-      return res.status(400).json({ message: "Invalid or expired token" });
+      return res.status(401).json({ message: "Session Expired" });
     }
 
     // Validate the new password
