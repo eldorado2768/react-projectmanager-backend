@@ -22,19 +22,17 @@ const checkSessionActivity = async (req, res, next) => {
       });
     }
 
-    // Check inactivity period
-    const inactivityPeriod = Date.now() - session.lastActivity;
-    if (inactivityPeriod > 60 * 60 * 1000) {
-      return res.status(401).json({
-        message: "Session expired or not found. Please log in again."
-    });
+const inactivityPeriod = Date.now() - session.lastActivity;
+if (inactivityPeriod > 60 * 60 * 1000) {
+  console.log("🚨 User inactive for too long. Marking session as expired.");
 
-      // Delete session after 1 hour of inactivity
-      await Session.deleteOne({ accessToken: token });
-     
-    }
+  // 🚀 Instead of deleting immediately, let the frontend handle logout first
+  return res.status(401).json({
+    message: "Session expired due to inactivity.",
+  });
+}
 
-    // Update activity timestamp
+   // Update activity timestamp
     session.lastActivity = Date.now();
     await Session.updateOne(
       { accessToken: token },
