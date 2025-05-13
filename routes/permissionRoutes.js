@@ -1,5 +1,5 @@
 import express from "express";
-import addPermission from "../controllers/permissionController.js"; // Fixed variable name
+import {getPermissions, addPermission, updatePermission, deletePermission} from "../controllers/permissionController.js"; // Fixed variable name
 import protect from "../middleware/protect.js"; // Middleware for authentication
 import asyncHandler from "../middleware/asyncHandler.js";
 
@@ -17,20 +17,33 @@ const rolesRequired = (roles) => (req, res, next) => {
   next();
 };
 
+router.get(
+  "/:roleId/permissions", // ✅ Use GET for retrieving role permissions
+  protect,
+  rolesRequired(["superadmin"]),
+  asyncHandler(getPermissions)
+);
+
 router.post(
-  "/add-permission",
+  "/:roleId/permissions", // ✅ POST for adding a new permission
   protect,
   rolesRequired(["superadmin"]),
   asyncHandler(addPermission)
 );
 
-// Placeholder for retrieving permissions (admin and superadmin)
-// router.get("/", authMiddleware, rolesRequired(["admin", "superadmin"]), permissionController.getPermissions);
+router.put(
+  "/:roleId/permissions/:permissionId", // ✅ PUT for updating an existing permission
+  protect,
+  rolesRequired(["superadmin"]),
+  asyncHandler(updatePermission)
+);
 
-// Placeholder for updating a permission (superadmin only)
-// router.put("/:id", authMiddleware, rolesRequired(["superadmin"]), permissionController.updatePermission);
+router.delete(
+  "/:roleId/permissions/:permissionId", // ✅ DELETE for removing a permission
+  protect,
+  rolesRequired(["superadmin"]),
+  asyncHandler(deletePermission)
+);
 
-// Placeholder for deleting a permission (superadmin only)
-// router.delete("/:id", authMiddleware, rolesRequired(["superadmin"]), permissionController.deletePermission);
+module.exports = router;
 
-export default router;
