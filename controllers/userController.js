@@ -167,6 +167,9 @@ const createSession = async (userId, role) => {
 export const loginUser = async (req, res) => {
   const { username, password } = req.body;
 
+  //current time back end
+  console.log("Current time:", new Date());
+
   // Role-based redirects
   const roleRedirects = {
     superadmin: "/superadmin",
@@ -435,8 +438,7 @@ export const resetPassword = async (req, res) => {
 
 export const updatePassword = async (req, res) => {
   const { userId, newPassword } = req.body;
-  
-  
+
   if (req.user.userId !== userId) {
     return res.status(403).json({ message: "Unauthorized: User mismatch" });
   }
