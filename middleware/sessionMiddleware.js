@@ -3,7 +3,6 @@ import Session from "../models/Session.js";
 
 const checkSessionActivity = async (req, res, next) => {
   const token = req.cookies.authToken; // Get the authToken from
-  
 
   if (!token) {
     return res.status(401).json({ message: "Authentication token required." });
@@ -22,18 +21,20 @@ const checkSessionActivity = async (req, res, next) => {
       });
     }
 
-const inactivityPeriod = Date.now() - session.lastActivity;
-if (inactivityPeriod > 60 * 60 * 1000) {
-  console.log("🚨 User inactive for too long. Marking session as expired.");
+    const inactivityPeriod = new Date(
+      Date.now() - session.lastActivity
+    ).toISOString();
+    if (inactivityPeriod > 60 * 60 * 1000) {
+      console.log("🚨 User inactive for too long. Marking session as expired.");
 
-  // 🚀 Instead of deleting immediately, let the frontend handle logout first
-  return res.status(401).json({
-    message: "Session expired due to inactivity.",
-  });
-}
+      // 🚀 Instead of deleting immediately, let the frontend handle logout first
+      return res.status(401).json({
+        message: "Session expired due to inactivity.",
+      });
+    }
 
-   // Update activity timestamp
-    session.lastActivity = Date.now();
+    // Update activity timestamp
+    session.lastActivity = new Date(Date.now()).toISOString();
     await Session.updateOne(
       { accessToken: token },
       { $set: { lastActivity: session.lastActivity } }

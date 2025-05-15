@@ -156,8 +156,9 @@ const createSession = async (userId, role) => {
     userId,
     accessToken,
     refreshToken,
-    expiresAt: new Date(Date.now() + 3600 * 1000), // Expiration 1 hour
+    expiresAt: new Date(Date.now() + 3600 * 1000).toISOString(),// Expiration 1 hour UTC time
   });
+  
 
   await session.save(); // Save session in the database
   return { accessToken, refreshToken };
