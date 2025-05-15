@@ -23,7 +23,6 @@ const allowedOrigins = [
 
 app.use(cookieParser());
 
-
 app.use(
   cors({
     origin: allowedOrigins,
@@ -39,8 +38,6 @@ app.use(
     credentials: true, // Required if using authentication headers
   })
 );
-
-
 
 app.options("*", cors());
 
@@ -71,6 +68,9 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+//current time back end
+console.log("Current time:", new Date());
 
 // Graceful Shutdown
 process.on("SIGINT", async () => {
