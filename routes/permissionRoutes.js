@@ -1,5 +1,10 @@
 import express from "express";
-import {getPermissions, addPermission, updatePermission, deletePermission} from "../controllers/permissionController.js"; // Fixed variable name
+import {
+  getPermissions,
+  addPermission,
+  updatePermission,
+  deletePermission,
+} from "../controllers/permissionController.js"; // Fixed variable name
 import protect from "../middleware/protect.js"; // Middleware for authentication
 import asyncHandler from "../middleware/asyncHandler.js";
 
@@ -45,5 +50,4 @@ router.delete(
   asyncHandler(deletePermission)
 );
 
-module.exports = router;
-
+export default router;
