@@ -21,9 +21,7 @@ const checkSessionActivity = async (req, res, next) => {
       });
     }
 
-    const inactivityPeriod = new Date(
-      Date.now() - session.lastActivity
-    ).toISOString();
+    const inactivityPeriod = new Date(Date.now() - session.lastActivity);
     if (inactivityPeriod > 60 * 60 * 1000) {
       console.log("🚨 User inactive for too long. Marking session as expired.");
 
