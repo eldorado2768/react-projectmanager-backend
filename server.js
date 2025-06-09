@@ -1,5 +1,5 @@
 import express from "express";
-import cors from "cors";
+//import cors from "cors";
 import mongoose from "mongoose";
 import userRoutes from "./routes/userRoutes.js";
 import roleRoutes from "./routes/roleRoutes.js";
@@ -15,13 +15,15 @@ if (!process.env.MONGODB_URI) {
   process.exit(1); // Exit with failure
 }
 
-// Configure CORS
+/* Configure CORS
 const allowedOrigins = [
    "https://react-projectmanager-git-master-david-brotmans-projects.vercel.app",
 ];
+*/
 
 app.use(cookieParser());
 
+/*
 app.use(
   cors({
     origin: allowedOrigins,
@@ -39,6 +41,7 @@ app.use(
 );
 
 app.options("*", cors());
+*/
 
 // Middleware to parse JSON requests
 app.use(express.json());
