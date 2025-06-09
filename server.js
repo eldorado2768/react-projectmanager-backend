@@ -17,8 +17,7 @@ if (!process.env.MONGODB_URI) {
 
 // Configure CORS
 const allowedOrigins = [
-  "https://react-projectmanager.vercel.app",
-  "https://react-projectmanager-git-master-david-brotmans-projects.vercel.app",
+   "https://react-projectmanager-git-master-david-brotmans-projects.vercel.app",
 ];
 
 app.use(cookieParser());
